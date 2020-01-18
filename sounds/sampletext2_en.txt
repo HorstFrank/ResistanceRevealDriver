@@ -1,0 +1,70 @@
+-- welcome.
+
+The program has been started.
+
+-- procedurestart.
+
+When all are ready – the procedure of disclosure starts.
+
+-- questidcheck
+
+Make sure once again - which identity you have.
+
+-- closeeyes
+
+All players - now close their eyes.
+
+-- allopen
+
+Now - all players open their eyes.
+
+-- success
+
+The program - was successfully executed.
+
+-- gamestartin
+
+Game starts in:
+
+-- coutdown three, two, one
+
+Three. ...two. ... One.
+
+-- gamestart
+
+START!
+
+-- attention
+
+Attention!
+-- followingroles
+
+The following roles:
+
+-- spys
+
+Spies.
+
+-- openeyes
+
+now open their eyes.
+
+-- commentOpen
+
+Look at yourselves - and remember - who is a spy.
+
+-- closeCountdownStart
+
+Close your eyes:
+
+-- close
+
+Close!
+
+-- cancellation
+
+The program - was aborted.
+
+-- revealcancellation
+
+The correct identification - has not occurred

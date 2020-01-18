@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Resistance RevDriver</title>
+    <!-- https://electronjs.org/docs/tutorial/security#csp-meta-tag -->
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
+
+
+
+    <link rel="stylesheet" href="fonts/fontawesome/css/justone.css">
+
+    <style>
+        @font-face {
+            font-family: 'mainfont';
+            src: url('fonts/oxanium/Oxanium-Regular.ttf');
+        }
+        
+        @font-face {
+            font-family: 'mainfont';
+            src: url('fonts/oxanium/Oxanium-Bold.ttf');
+            font-weight: bold;
+        }
+        /* @font-face {
+            font-family: 'Font Awesome 5 Free';
+            src: url('fonts/oxanium/Oxanium-Bold.ttf');
+            font-weight: bold;
+        } */
+        
+        @font-face {
+            font-family: 'Font Awesome 5 Free blur';
+            font-style: normal;
+            font-weight: 900;
+            font-display: auto;
+            src: url("fonts/fontawesome/webfonts/fa-solid-900.eot");
+            src: url("fonts/fontawesome/webfonts/fa-solid-900.eot?#iefix") format("embedded-opentype"), url("fonts/fontawesome/webfonts/fa-solid-900.woff2") format("woff2"), url("fonts/fontawesome/webfonts/fa-solid-900.woff") format("woff"), url("fonts/fontawesome/webfonts/fa-solid-900.ttf") format("truetype"), url("fonts/fontawesome/webfonts/fa-solid-900.svg#fontawesome") format("svg");
+        }
+        
+        html {
+            /* box-sizing: border-box; */
+            font-family: 'mainfont';
+            /* font-size: 100%; */
+            /* height: 100%; */
+            height: 100%;
+            margin: 0;
+        }
+        
+        body {
+            height: 100%;
+            margin: 0;
+            /* height: 100%; */
+            /* margin: 0; */
+            /* background-repeat: no-repeat; */
+            /* background-attachment: fixed; */
+            /* background-color: -webkit-gradient(linear, 0 0, 0 20%, from(#CCFF66), to(#fff)); */
+            /* background-image: linear-gradient(to bottom right, #ffffff, #f3f3f3); */
+            background: #242527;
+            color: rgba(155, 155, 155, 1);
+        }
+        
+        a {
+            text-decoration: none;
+            color: #EC5C93;
+        }
+        
+        .btn,
+        .btnlan {
+            position: relative;
+            cursor: pointer;
+            width: 140px;
+            height: 140px;
+            /* line-height: 100%; */
+            line-height: 140px;
+            background: #25292C;
+            margin: 0px auto;
+            text-align: center;
+            border-radius: 999px;
+            color: hsl(193, 9%, 39%);
+            /* fill: rgba(155, 155, 155, 0.9); */
+            text-shadow: -1px -1px 0px rgba(0, 0, 0, 1), 1px 1px 1px rgba(255, 255, 255, 0.4);
+            font-size: 5em;
+            /* font-size: 8em; */
+            font-family: sans-serif;
+            box-shadow: inset 1px 1px 2px rgba(255, 255, 255, 0.3), inset 3px 15px 45px rgba(255, 255, 255, 0.1), inset -1px -1px 2px rgba(0, 0, 0, 0.5), inset -3px -15px 45px rgba(0, 0, 0, 0.2), 1px 5px 30px -4px rgba(0, 0, 0, 1);
+            -webkit-transition: 0.1s ease-out;
+            -moz-transition: 0.1s ease-out;
+            -o-transition: 0.1s ease-out;
+            transition: 0.1s ease-out;
+            /* margin-right: 22px;
+            margin-bottom: 22px; */
+            /* margin-top: 28px; */
+        }
+        
+        .btn:before,
+        .btnlan:before {
+            content: "";
+            background: #1A1A1A;
+            /* width: 170px; */
+            width: 121.428%;
+            /* height: 170px; */
+            height: 121.428%;
+            position: absolute;
+            top: -10.714%;
+            left: -10.714%;
+            /* left: -15px; */
+            z-index: -1;
+            /* border-radius: 999px; */
+            border-radius: 713.57142%;
+            box-shadow: inset -1px -1px 2px rgba(255, 255, 255, 0.3), inset -5px -15px 40px rgba(255, 255, 255, 0.1), inset 1px 1px 2px rgba(0, 0, 0, 0.5), inset 5px 15px 40px rgba(0, 0, 0, 0.2), -2px -40px 50px -20px rgba(255, 255, 255, 0.1), 2px 35px 50px -10px rgba(0, 0, 0, 0.4), 0px 0px 25px 8px rgba(60, 60, 60, 1);
+        }
+        
+        .btn:active,
+        .btnlan:active {
+            /* color: hsl(193, 9%, 39%); */
+            color: hsl(193, 68%, 71%);
+            text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.15);
+            /* text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8); */
+            box-shadow: inset 1px 1px 2px rgba(255, 255, 255, 0.3), inset 3px 15px 45px rgba(0, 0, 0, 0.2), inset -1px -1px 2px rgba(0, 0, 0, 0.5), inset -3px -15px 45px rgba(255, 255, 255, 0.1), 1px 5px 10px -4px rgba(0, 0, 0, 1);
+        }
+        
+        .btn:active:after {
+            font-family: 'Font Awesome 5 Free blur';
+            content: "\f011";
+            color: hsl(193, 68%, 71%);
+            top: 0px;
+            left: -15px;
+            width: 170px;
+            height: 170px;
+            position: absolute;
+            filter: blur(10px);
+            opacity: 0.8;
+        }
+        
+        .btnplay {
+            color: hsl(118, 70%, 67%);
+        }
+        
+        .btnplay:after {
+            font-family: 'Font Awesome 5 Free blur';
+            content: "\f011";
+            color: hsl(118, 70%, 67%);
+            top: 0px;
+            left: -15px;
+            width: 170px;
+            height: 170px;
+            position: absolute;
+            filter: blur(10px);
+            opacity: 0.8;
+        }
+        
+        .btnplay:active {
+            /* color: hsl(193, 9%, 39%); */
+            /* animation-play-state: paused; */
+            animation-name: pulseingred;
+            /* color: hsl(0, 76%, 64%) !important; */
+            text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.15);
+            /* text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8); */
+            box-shadow: inset 1px 1px 2px rgba(255, 255, 255, 0.3), inset 3px 15px 45px rgba(0, 0, 0, 0.2), inset -1px -1px 2px rgba(0, 0, 0, 0.5), inset -3px -15px 45px rgba(255, 255, 255, 0.1), 1px 5px 10px -4px rgba(0, 0, 0, 1);
+        }
+        
+        .btnplay:active:after {
+            font-family: 'Font Awesome 5 Free blur';
+            content: "\f011";
+            color: hsl(0, 94%, 55%);
+            top: 0px;
+            left: -15px;
+            width: 170px;
+            height: 170px;
+            position: absolute;
+            filter: blur(10px);
+            opacity: 0.4;
+        }
+        
+        .btnplayprogress {
+            color: hsl(0, 94%, 55%);
+        }
+        
+        .flag {
+            border-radius: 50%;
+            box-shadow: inset 1px 1px 7px rgba(255, 255, 255, 0.3), inset 3px 15px 45px rgba(255, 255, 255, 0.1), inset -1px -1px 2px rgba(0, 0, 0, 0.5), inset -3px -15px 45px rgba(0, 0, 0, 0.2), 1px 5px 30px -4px rgba(0, 0, 0, 1);
+            width: 100px;
+            height: 100px;
+            /* background: transparent url(images/de.png) no-repeat 0 0; */
+            /* background: white; */
+            /* text-shadow: -1px -1px 0px rgba(0, 0, 0, 1), 1px 1px 10px rgba(255, 255, 255, 0.7); */
+            -webkit-transition: 0.1s ease-out;
+            -moz-transition: 0.1s ease-out;
+            -o-transition: 0.1s ease-out;
+            transition: 0.1s ease-out;
+        }
+        
+        .flag:active {
+            box-shadow: inset 1px 1px 2px rgba(255, 255, 255, 0.3), inset 3px 15px 45px rgba(0, 0, 0, 0.2), inset -1px -1px 2px rgba(0, 0, 0, 0.5), inset -3px -15px 45px rgba(255, 255, 255, 0.1), 1px 5px 10px -4px rgba(0, 0, 0, 1);
+        }
+        
+        .hl {
+            width: 100%;
+            /* height: 30%; */
+            text-align: center;
+            vertical-align: middle;
+            /* display: table-cell; */
+        }
+        
+        .maincontainer {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            flex-wrap: nowrap;
+            justify-content: flex-start;
+            align-items: center;
+            align-content: stretch;
+        }
+        
+        .content {
+            flex: 1 1 auto;
+            display: flex;
+            align-items: center;
+        }
+        
+        .pulse {
+            animation-duration: 6s;
+            animation-name: pulseing;
+            animation-iteration-count: infinite;
+            animation-timing-function: ease-in-out;
+        }
+        
+        .shutdown {
+            animation-duration: 0.9s;
+            animation-name: shutdown;
+            animation-iteration-count: infinite;
+            animation-timing-function: ease-in-out;
+        }
+        
+        @keyframes pulseingred {
+            0% {
+                color: hsl(0, 75%, 33%);
+            }
+            50% {
+                color: hsl(0, 94%, 55%);
+            }
+            100% {
+                color: hsl(0, 75%, 33%);
+            }
+        }
+        
+        @keyframes shutdown {
+            0% {
+                color: hsl(0, 76%, 38%);
+            }
+            5% {
+                color: hsl(0, 0%, 17%);
+            }
+            40% {
+                color: hsl(0, 76%, 38%);
+            }
+            100% {
+                color: hsl(0, 76%, 38%);
+            }
+        }
+        
+        @keyframes pulseing {
+            0% {
+                color: hsl(118, 70%, 67%);
+            }
+            50% {
+                color: hsl(118, 100%, 97%);
+            }
+            100% {
+                color: hsl(118, 70%, 67%);
+            }
+        }
+    </style>
+</head>
+
+
+<body>
+
+    <div class="maincontainer">
+
+        <div id="hlcontainer" class="hl" style="display:none">
+            <h1 id="hl">Resistance</h1>
+            <span id="sl">Reveal-Driver</span>
+        </div>
+
+        <div class="content">
+            <div id="language" style="display:none">
+                <div class="btnlan" style="width:100px; height:100px;margin-right: 30px;">
+                    <div onmouseup="intl('de')" style=" background: url(images/de.png) bottom center no-repeat;background-size: 100% 100%; " class="flag "></div>
+                </div>
+                <div class="btnlan " style="width:100px; height:100px;margin-right: 0px; ">
+                    <div onmouseup="intl('en')" style="background: url(images/en.png) bottom center no-repeat;background-size: 100% 100%; " class="flag "></div>
+                </div>
+            </div>
+            <div id="startbutton" style="display:none;">
+                <div class="btn " onmouseup="start() ">
+                    <i class="fas fa-power-off"></i>
+                </div>
+            </div>
+            <div id="stopbutton" style="display:none ">
+                <div class="btn btnplay pulse " onmouseup="stop() ">
+                    <i class="fas fa-power-off "></i>
+                </div>
+            </div>
+            <div id="stopbuttonprogress" style="display:none ">
+                <div class="btn btnplayprogress pulseprogress shutdown">
+                    <i class="fas fa-power-off "></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</body>
+<script>
+    var x;
+    /*
+             #############################################################
+             
+             Body Guard
+             Blue Chief
+             Commander
+             Blue Defector
+             Dummy Agent
+             Blue Hunter
+             Pretender
+             Blue Reverser
+             Blue Rogue
+             -----
+             Spy
+             Assasin
+             Blind Spy
+             Red Chief
+             Deep Agent
+             Deep Cover
+             Red Defactor
+             False Commander
+             Red Hunter
+             Red Reverser
+             Red Rogue
+             ------------------------------------
+             Body Guard
+             Blauere Chefs
+             Kommandeur
+             Koordinator
+             Blauer Überläufer
+             Heuchler
+             -----
+             Spion
+             Assasin
+             Blinder Spion
+             Roter Chef
+             Deep Agent
+             Deep Cover
+             Roter Überläufer
+             Falscher Kommandeur
+             Roter Jäger
+             -----------------------------------
+
+
+             */
+
+    var player = require('play-sound')(opts = {})
+
+
+    var audioStart = [];
+    var playstatus = true;
+    var ln;
+    var language = 'en/';
+    var playlistelements;
+    const soundpath = 'sounds/';
+    const driver = soundpath + 'driver/'
+    var nonplay = {};
+    var playlist = [];
+
+
+
+
+
+
+
+    var revealplan = {
+        'bodyguard': {
+            'open': ['bodyguard'],
+            'setting': {
+                'commander': 'thumb',
+                'false commander': 'thumb'
+            }
+        },
+        'blue chief': {
+            'open': ['blue chief'],
+            'setting': {
+                'coordinator': 'thumb'
+            }
+        },
+        'commander': {
+            'open': ['commander'],
+            'setting': {
+                'spy': 'thumb',
+                'assasin': 'thumb',
+                'blind spy': 'thumb',
+                'red chief': 'thumb',
+                'deep agent': 'thumb',
+                'red defactor': 'thumb',
+                'false commander': 'thumb',
+                'red hunter': 'thumb',
+            }
+        },
+        'defector': {
+            'open': [
+                'blue defector',
+                'red defector'
+            ],
+            'setting': {}
+        },
+        'spy': {
+            'open': [
+                'spy',
+                'assasin',
+                'red chief',
+                'deep cover',
+                'false commander',
+                'red hunter',
+            ],
+            'setting': {
+                'pretender': 'thumb',
+                'deep agent': 'thumb',
+                'red defector': 'pointer',
+                'red chief': 'thumbpointer',
+            }
+        }
+    }
+
+    const settingplan = {
+        // 'Trapper Module': {},
+        'Defector Module': {
+            'red defector': {
+                'label': 'Spy Defector',
+                'team': 'spy',
+                'status': false,
+            },
+            'blue defector': {
+                'label': 'Resistance Defector',
+                'team': 'resistance',
+                'status': false,
+            },
+            'defector': {
+                'label': 'Defector',
+                'team': '',
+                'status': false,
+            },
+        },
+        'Hunter Module': {
+            'red hunter': {
+                'label': 'Spy Hunter',
+                'team': 'spy',
+                'status': false,
+            },
+            'deep agent': {
+                'label': 'Spy Deep Agent',
+                'team': 'spy',
+                'status': false,
+            },
+            'red chief': {
+                'label': 'Spy Chiefs',
+                'team': 'spy',
+                'status': false,
+            },
+            'pretender': {
+                'label': 'Resistance Pretender',
+                'team': 'resistance',
+                'status': false,
+            },
+            'blue hunter': {
+                'label': 'Resistance Hunter',
+                'team': 'resistance',
+                'status': false,
+            },
+            'blue chief': {
+                'label': 'Resistance Chiefs',
+                'team': 'resistance',
+                'status': false,
+            },
+            'dummy agent': {
+                'label': 'Resistance Dummy Agent',
+                'team': 'resistance',
+                'status': false,
+            },
+            'coordinator': {
+                'label': 'Resistance Coordinator',
+                'team': 'resistance',
+                'status': false,
+            },
+
+        },
+        'Assasin Module': {
+            'deep cover': {
+                'label': 'Spy Deep Cover',
+                'team': 'spy',
+                'status': false,
+            },
+            'blind spy': {
+                'label': 'Spy Blind Spy',
+                'team': 'spy',
+                'status': false,
+            },
+            'assasin': {
+                'label': 'Spy Assasin',
+                'team': 'spy',
+                'status': false,
+            },
+            'false commander': {
+                'label': 'Spy False Commander',
+                'team': 'spy',
+                'status': false,
+            },
+            'commander': {
+                'label': 'Resistance Commander',
+                'team': 'resistance',
+                'status': false,
+            },
+            'bodyguard': {
+                'label': 'Resistance Bodyguard',
+                'team': 'resistance',
+                'status': false,
+            },
+
+        },
+    }
+
+
+    const lang = {
+        'de': {
+            'title': 'Der Widerstand',
+            'subtitle': 'Aufdeckungshelfer',
+        },
+        'en': {
+            'title': 'The Resistance',
+            'subtitle': 'Reveal Helper',
+        },
+
+    }
+
+
+
+
+    function intl(lan) {
+
+        document.getElementById('language').style.display = 'none';
+        document.getElementById('startbutton').style.display = 'contents';
+        document.getElementById('hlcontainer').style.display = 'contents';
+
+
+        switch (lan) {
+            case 'de':
+                language = soundpath + 'de/'
+                break;
+            case 'en':
+                language = soundpath + 'en/'
+                break;
+            default:
+                language = soundpath + 'en/'
+        }
+
+        // console.log('lan.', language);
+
+        document.getElementById('hl').innerText = lang[lan].title;
+        document.getElementById('sl').innerText = lang[lan].subtitle;
+
+        init();
+
+
+
+    }
+
+
+
+    /*
+
+We reduce the Full Reveal Plan  with the settings.
+For now the Settingplan is static, but in future versions i plan
+to customise it. 
+
+        */
+
+    function init() {
+
+
+
+
+        playlistelements = {
+            'start': [
+                driver + 'start.mp3',
+                'WAIT 1',
+                language + 'welcome.mp3',
+                'WAIT 1',
+                language + 'questidcheck.mp3',
+                'WAIT 2',
+                driver + 'pling.mp3',
+                'WAIT 0.5',
+                driver + 'pling.mp3',
+                'WAIT 0.5',
+                driver + 'pling.mp3',
+                'WAIT 0.5',
+                driver + 'pling.mp3',
+                'WAIT 0.5',
+                driver + 'plong.mp3',
+                'WAIT 0.4',
+                language + 'closeeyes.mp3',
+            ],
+            'end': [
+                language + 'allopen.mp3',
+                'WAIT 1',
+                language + 'success.mp3',
+                'WAIT 1.5',
+                language + 'gamestartin.mp3',
+                language + 'three.mp3',
+                language + 'two.mp3',
+                language + 'one.mp3',
+                language + 'gamestart.mp3',
+                'WAIT 1',
+                driver + 'end.mp3',
+                'EOP'
+            ],
+            'attention': [
+                language + 'attention.mp3',
+                'WAIT 1',
+            ],
+            'followingroles': [
+                language + 'followingroles.mp3',
+            ],
+            'openEyes': [
+                language + 'openeyes.mp3',
+            ],
+            'openEyesComment': [
+                language + 'commentopen.mp3',
+            ],
+            'openWait10': [
+                'WAIT 5',
+                driver + 'pling.mp3',
+                'WAIT 0.5',
+                driver + 'pling.mp3',
+                'WAIT 0.5',
+                driver + 'pling.mp3',
+                'WAIT 0.5',
+                driver + 'pling.mp3',
+                'WAIT 0.5',
+                driver + 'plong.mp3',
+                'WAIT 0.4',
+            ],
+            'closeCoutdown': [
+                language + 'closecountdownstart.mp3',
+                language + 'three.mp3',
+                language + 'two.mp3',
+                language + 'one.mp3',
+                language + 'close.mp3',
+                'WAIT 3',
+            ],
+            'rolename': {
+                'spy': language + 'spys.mp3',
+            }
+        };
+
+
+
+        // Start the Playlist
+        playlist = playlist.concat(playlistelements.start);
+
+
+        Object.keys(settingplan).forEach(function(key, _) {
+            Object.keys(settingplan[key]).forEach(function(role, _) {
+                nonplay[role] = !settingplan[key][role].status;
+            });
+        });
+        // console.log(nonplay);
+
+        Object.keys(nonplay).forEach(function(nonrole, _) {
+
+            // step 1
+            Object.keys(revealplan).forEach(function(revealrole, _) {
+                if (nonplay[nonrole] == true && nonrole == revealrole) {
+                    delete revealplan[revealrole];
+                    // console.log(nonplay[nonrole]);
+                    // console.log(revealrole);
+                }
+            });
+
+            //step 2 (open)
+            Object.keys(revealplan).forEach(function(revealrole, _) {
+                Object.keys(revealplan[revealrole].open).forEach(function(openrolekey, _) {
+                    if (nonplay[nonrole] == true && nonrole == revealplan[revealrole].open[openrolekey]) {
+                        // console.log(revealplan[revealrole].open[openrolekey]);
+                        delete revealplan[revealrole].open[openrolekey];
+                        // console.log(nonplay[nonrole]);
+                        // console.log(revealrole);
+                    }
+                });
+            });
+
+            //step 3 (setting)
+            Object.keys(revealplan).forEach(function(revealrole, _) {
+                Object.keys(revealplan[revealrole].setting).forEach(function(settingrole, _) {
+                    if (nonplay[nonrole] == true && nonrole == settingrole) {
+                        // console.log(revealplan[revealrole].open[openrolekey]);
+                        delete revealplan[revealrole].setting[settingrole];
+                        // console.log(nonplay[nonrole]);
+                        // console.log(revealrole);
+                    }
+                });
+            });
+        }); // Eo Crop revealplan
+
+        // find all relevant Roles and handle the Reveal for them
+        Object.keys(revealplan).forEach(function(revealrole, _) {
+
+            if (Object.keys(revealplan[revealrole].setting).length > 0) {
+                console.log('this is for later Versions');
+            }
+
+            if (revealplan[revealrole].open.length > 0) {
+
+                playlist = playlist.concat(playlistelements.attention);
+                playlist = playlist.concat(playlistelements.followingroles);
+
+                revealplan[revealrole].open.forEach(function(openrole, _) {
+                    playlist = playlist.concat(playlistelements.rolename[openrole]);
+                    playlist = playlist.concat(['WAIT 1']);
+                    // console.log("rn: ", playlistelements.rolename[openrole]);
+                });
+
+                // console.log(revealplan[revealrole].open.length);
+                playlist = playlist.concat(playlistelements.openEyes);
+                playlist = playlist.concat(playlistelements.openEyesComment);
+                playlist = playlist.concat(playlistelements.openWait10);
+                playlist = playlist.concat(playlistelements.closeCoutdown);
+            }
+        });
+
+        // ending sequence
+        playlist = playlist.concat(playlistelements.end);
+
+        console.log(playlist);
+    }
+
+    function start() {
+
+        document.getElementById('startbutton').style.display = 'none';
+        document.getElementById('stopbutton').style.display = 'contents';
+
+        // document.getElementById('stopbutton').style.display = 'contents';
+        // console.log("playlist: ", playlist);
+        play(playlist);
+
+        // visible  (visible and hidden)
+
+
+        //-----------
+        // console.log("revealplan: ", revealplan);
+        // console.log("playlist: ", playlist);
+        //-----------
+        // console.log("playlist: ", playlist);
+        // console.log("pelelements: ", playlistelements['start']);
+        // play(playlistelements['end']);
+    }
+
+
+
+
+    function play(arr) {
+        const st = (arr[0].split(' ')[0] == 'WAIT') ? +arr[0].split(' ')[1] : 0;
+        if (arr[0] == 'EOP') {
+            document.getElementById('startbutton').style.display = 'contents';
+            document.getElementById('stopbuttonprogress').style.display = 'none';
+            document.getElementById('stopbutton').style.display = 'none';
+        } else {
+            sleep(st * 1000).then(() => {
+                audioStart[arr.length] = player.play(arr[0], x => {
+                    if (arr[1] && playstatus) play(arr.slice(1));
+                })
+            })
+        }
+    }
+
+    function sleep(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
+    function stop() {
+        document.getElementById('stopbutton').style.display = 'none';
+        document.getElementById('stopbuttonprogress').style.display = 'contents';
+        playstatus = false;
+        for (let i = 0; i < playlist.length - 1; i++) {
+            if (audioStart[i]) audioStart[i].kill();
+        }
+        interupt([
+            driver + 'separator.mp3',
+            language + 'cancellation.mp3',
+            language + 'revealcancellation.mp3',
+            driver + 'end.mp3',
+            'EOP'
+        ])
+    }
+
+    function interupt(file) {
+
+        if (file[0] == 'EOP') {
+            document.getElementById('startbutton').style.display = 'contents';
+            document.getElementById('stopbuttonprogress').style.display = 'none';
+            playstatus = true;
+        } else {
+            audioStartInter = player.play(file[0], x => {
+                if (file[1]) {
+                    interupt(file.slice(1))
+
+                }
+            })
+        }
+    }
+
+
+    document.getElementById('language').style.display = 'contents';
+</script>
+
+
+
+</html>

@@ -1,0 +1,72 @@
+-- welcome.
+
+Das Programm wurde gestartet.
+
+-- procedurestart.
+
+Wenn alle Bereit sind – beginnt nun – die Prozedur der Enthüllung.
+
+-- questidcheck
+
+Vergewissert euch noch einmal – welche Identität ihr habt.
+
+-- closeeyes
+
+Alle Spieler – schließen nun ihre Augen.
+
+-- allopen
+
+Nun – öffnen alle Spieler ihre Augen.
+
+-- success
+
+Das Programm – wurde erfolgreich ausgeführt.
+
+-- gamestartin
+
+Spielstart in:
+
+-- coutdown three, two, one
+
+Drei. … Zwei. … Eins.
+
+-- gamestart
+
+SPIELSTART!
+
+-- attention
+
+Achtung!
+
+-- followingroles
+
+Folgende Rollen:
+
+-- spys
+
+Spione.
+
+-- openeyes
+
+öffnen nun ihre Augen.
+
+-- commentOpen
+
+Schaut euch an – und merkt euch – wer ein Spion ist.
+
+-- closeCountdownStart
+
+Schließ eure Augen in:
+
+-- close
+
+Schließen!
+
+-- cancellation
+
+Das Programm  – wurde abgebrochen.
+
+-- revealcancellation
+
+Die korrekte Identifizierung – fand nicht statt.
+
